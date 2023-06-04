@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'taggit',
     'django.contrib.sites',
     'django.contrib.sitemaps',
+    'django.contrib.postgres',
     # локальные
     "blog.apps.BlogConfig",
 ]
@@ -84,8 +85,10 @@ WSGI_APPLICATION = "mysite.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": env('DATABASE_ENGINE'),
+        "NAME": 'blog',
+        'USER': 'blog',
+        'PASSWORD': env('DATABASE_PASSWORD'),
     }
 }
 
@@ -128,9 +131,9 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-EMAIL_HOST = str(env('EMAIL_HOST'))
-EMAIL_HOST_USER = str(env('EMAIL_HOST_USER'))
-EMAIL_HOST_PASSWORD = str(env('EMAIL_HOST_PASSWORD'))
+EMAIL_HOST = env('EMAIL_HOST')
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = env('EMAIL_PORT')
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
